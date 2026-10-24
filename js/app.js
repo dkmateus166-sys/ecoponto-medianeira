@@ -1362,19 +1362,25 @@
     return iOS;
   }
   function installAvailable() {
-    return !!deferredPrompt || (isIos() && !isStandalone());
+    // o navegador só dispara beforeinstallprompt em https; sem ele (iOS, alguns
+    // navegadores, desktop) o app mostra o passo a passo manual — nunca fica escondido.
+    return !isStandalone();
   }
 
   // Endereço do app na rede local, para quem abre no computador e quer levar ao celular.
   function lanAddress() {
     const host = location.hostname;
     const porta = location.port ? ":" + location.port : "";
+    // mantém a pasta do app no endereço (GitHub Pages serve em /ecoponto-medianeira/)
+    let pasta = location.pathname || "/";
+    pasta = pasta.replace(/[^/]*$/, ""); // remove index.html ou vazio
+    if (pasta.charAt(0) !== "/") pasta = "/" + pasta;
     if (host === "127.0.0.1" || host === "localhost") {
       // aberto no próprio computador: mostra o endereço de rede que o celular deve usar
       const ip = state.lanIp || "IP-DO-COMPUTADOR";
       return "http://" + ip + (porta || ":8080") + "/";
     }
-    return location.protocol + "//" + host + porta + "/";
+    return location.protocol + "//" + host + porta + pasta;
   }
 
   // Descobre o IP do computador na rede local (WebRTC). Se não conseguir,
@@ -1398,6 +1404,12 @@
   }
 
   function showInstallUi() {
+    const bannerTxt = $("#install-banner .install-text small");
+    if (bannerTxt) {
+      bannerTxt.textContent = isStandalone()
+        ? "App instalado neste aparelho."
+        : "Instale em 2 toques — depois funciona até sem internet. Grátis.";
+    }
     const banner = $("#install-banner");
     const btn = $("#btn-install");
     if (isStandalone()) { if (banner) banner.hidden = true; if (btn) btn.hidden = true; return; }
@@ -1426,6 +1438,7 @@
   }
 
   function openInstallGuide() {
+    if (isStandalone()) { toast("O app já está instalado neste aparelho. Abra pelo ícone do EcoMedianeira.", "ok"); return; }
     if (deferredPrompt) { installApp(); return; }
     const host = $("#install-guide");
     if (!host) { toast("Use o menu do navegador → Instalar app", "info"); return; }
@@ -1502,6 +1515,8 @@
 
     const main = $("#btn-install-main");
     if (main) main.addEventListener("click", () => openInstallGuide());
+    const topo = $("#btn-install");
+    if (topo) topo.addEventListener("click", () => openInstallGuide());
 
     setTimeout(showInstallUi, 300);
     showInstallUi();

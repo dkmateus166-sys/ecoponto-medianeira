@@ -1,6 +1,6 @@
 /* EcoMedianeira — service worker
    Versão: mude o número a cada publicação para forçar a atualização nos aparelhos. */
-const CACHE = "ecomedianeira-v11";
+const CACHE = "ecomedianeira-v12";
 const ASSETS = [
   "./",
   "./index.html",
