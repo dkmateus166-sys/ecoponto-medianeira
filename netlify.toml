@@ -1,0 +1,19 @@
+# Publicação do EcoMedianeira no Netlify (arraste a pasta no Netlify Drop)
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
+# SPA por hash: qualquer rota devolve o index
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
