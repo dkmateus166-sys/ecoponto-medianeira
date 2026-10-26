@@ -1,6 +1,6 @@
 /* EcoMedianeira — service worker
    Versão: mude o número a cada publicação para forçar a atualização nos aparelhos. */
-const CACHE = "ecomedianeira-v12";
+const CACHE = "ecomedianeira-v14";
 const ASSETS = [
   "./",
   "./index.html",
@@ -13,7 +13,11 @@ const ASSETS = [
   "./manifest.webmanifest",
   "./icon.svg",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./icon-maskable-512.png",
+  "./play-shot-telefone.png",
+  "./play-shot-tablet.png",
+  "./play-feature-1024x500.png"
 ];
 
 self.addEventListener("install", (event) => {

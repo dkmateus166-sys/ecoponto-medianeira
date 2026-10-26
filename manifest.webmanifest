@@ -42,13 +42,28 @@
       "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
   ],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "play-shot-telefone.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Tela inicial do EcoMedianeira"
+    },
+    {
+      "src": "play-shot-tablet.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Mapa de pontos de coleta"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Solicitar coleta",
